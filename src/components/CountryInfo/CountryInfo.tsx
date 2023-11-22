@@ -73,7 +73,7 @@ const CountryInfo: React.FC<Props> = ({country}) => {
                 </div>
               </div>
               <div className="w-[40%] border border-black">
-                <img src={country.flag} alt="Флаг страны"/>
+                <img className="w-full max-h-[300px]" src={country.flag} alt="Флаг страны"/>
               </div>
             </div>
             <div className="mt-5">
