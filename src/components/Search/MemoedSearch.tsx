@@ -6,8 +6,6 @@ interface Props {
 }
 
 const MemoedSearch: React.FC<Props> = React.memo(function Search({searchCountry, countryName}) {
-    console.log("search render");
-
     return (
         <form className="w-full mb-3">
             <input

@@ -4,8 +4,7 @@ interface Props {
   status: boolean;
 }
 
-const Loader: React.FC<Props> = ({status}) => {
-
+const Loader: React.FC<Props> = React.memo( ({status}) => {
   if (!status) {
     return null;
   }
@@ -27,6 +26,8 @@ const Loader: React.FC<Props> = ({status}) => {
       </div>
     </div>
   );
-};
+}, (prevProps, nextProps) => {
+  return prevProps.status === nextProps.status;
+});
 
 export default Loader;

@@ -52,7 +52,12 @@ const App = () => {
   return (
     <div className="container mx-auto grid grid-cols-3 my-5 gap-2">
       <div className="col-start-1">
-        <SideBar searchCountry={searchCountry} countries={filteredCountries} selectCountry={fetchCountry}/>
+        <SideBar
+            countryName={countryName}
+            searchCountry={searchCountry}
+            countries={filteredCountries}
+            selectCountry={fetchCountry}
+        />
       </div>
       <div className="col-span-2 border border-black p-3">
         {

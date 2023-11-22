@@ -12,7 +12,6 @@ interface Props {
 
 const SideBar: React.FC<Props> = ({countries, selectCountry, searchCountry, countryName}) => {
   const [preloader, setPreLoader] = useState<boolean>(true);
-  console.log("render");
 
   useEffect(() => {
     if (countries.length !== 0) {

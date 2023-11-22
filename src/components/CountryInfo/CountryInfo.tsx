@@ -13,7 +13,7 @@ const CountryInfo: React.FC<Props> = ({country}) => {
   const [borders, setBorders] = useState<string[]>([]);
   const [preloader, setPreLoader] = useState<boolean>(true);
 
-  const fetchDescription =useCallback( async () => {
+  const fetchDescription = useCallback(async () => {
     try {
       const description = await axios.get(`https://en.wikipedia.org/w/api.php?action=query&exlimit=1&origin=*&explaintext=1&exsentences=10&formatversion=2&prop=extracts&titles=${country.name}&format=json`, {
         headers: {
@@ -30,13 +30,14 @@ const CountryInfo: React.FC<Props> = ({country}) => {
     void fetchDescription();
   }, [country, fetchDescription]);
 
+
   useEffect(() => {
     const fetchBorder = async () => {
       if (country.borders) {
         const borders = await Promise.all(country.borders.map(async (border) => {
           try {
             setPreLoader(true);
-            const response =  await axios.get(ALPHA_URL + border);
+            const response = await axios.get(ALPHA_URL + border);
             return response.data.name;
           } catch (error) {
             alert('Error ! ' + error);
@@ -47,14 +48,11 @@ const CountryInfo: React.FC<Props> = ({country}) => {
       } else {
         setBorders([]);
       }
-
       setPreLoader(false);
     };
 
     void fetchBorder();
   }, [country]);
-
-  console.log(country.currencies);
 
   return (
     <>
@@ -68,7 +66,9 @@ const CountryInfo: React.FC<Props> = ({country}) => {
                   <p><strong>Capital: </strong>{country.capital}</p>
                   <p><strong>Population: </strong>{country.population}</p>
                   {
-                    country.currencies && <p><strong>Currency: </strong>{country.currencies[0].name + ' ' + country.currencies[0].symbol}</p>
+                    country.currencies && <p>
+                      <strong>Currency: </strong>{country.currencies[0].name + ' ' + country.currencies[0].symbol}
+                    </p>
                   }
                 </div>
               </div>
@@ -81,7 +81,8 @@ const CountryInfo: React.FC<Props> = ({country}) => {
                 preloader ?
                   <Loader status={preloader}/>
                   :
-                  <p className="text-2xl"><strong>Description: </strong>{description ? description : 'No description'}</p>
+                  <p className="text-2xl">
+                    <strong>Description: </strong>{description ? description : 'No description'}</p>
               }
               <div className="mt-8">
                 <h4 className="font-bold text-3xl">Border with:</h4>
