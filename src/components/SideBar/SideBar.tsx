@@ -1,16 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import {Country} from '../../types';
 import Loader from '../Loader/Loader';
-import Search from "../Search/Search";
+import MemoedSearch from "../Search/MemoedSearch";
 
 interface Props {
   countries: Country[];
   selectCountry: (alpha: string) => void;
+  countryName: string;
   searchCountry: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const SideBar: React.FC<Props> = ({countries, selectCountry, searchCountry}) => {
+const SideBar: React.FC<Props> = ({countries, selectCountry, searchCountry, countryName}) => {
   const [preloader, setPreLoader] = useState<boolean>(true);
+  console.log("render");
 
   useEffect(() => {
     if (countries.length !== 0) {
@@ -20,7 +22,7 @@ const SideBar: React.FC<Props> = ({countries, selectCountry, searchCountry}) => 
 
   return (
     <div className="border border-black overflow-auto h-screen p-2">
-      <Search searchCountry={searchCountry}/>
+      <MemoedSearch countryName={countryName} searchCountry={searchCountry}/>
       {
         preloader ?
           <Loader status={preloader}/>

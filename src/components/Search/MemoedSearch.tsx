@@ -1,13 +1,17 @@
 import React from 'react';
 
 interface Props {
+    countryName: string;
     searchCountry: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Search: React.FC<Props> = ({searchCountry}) => {
+const MemoedSearch: React.FC<Props> = React.memo(function Search({searchCountry, countryName}) {
+    console.log("search render");
+
     return (
         <form className="w-full mb-3">
             <input
+                value={countryName}
                 className="border p-2 w-full outline-0 border-gray-300"
                 onChange={searchCountry}
                 placeholder="Enter Canada"
@@ -15,6 +19,8 @@ const Search: React.FC<Props> = ({searchCountry}) => {
             />
         </form>
     );
-};
+}, (prevProps, nextProps) => {
+    return prevProps.countryName === nextProps.countryName;
+});
 
-export default Search;
+export default MemoedSearch;
